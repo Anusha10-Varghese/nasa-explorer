@@ -1,3 +1,5 @@
+// frontend/vite.config.js
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -5,11 +7,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    // This proxy is for development. It forwards API requests
-    // from the frontend (e.g., /api/apod) to our backend server.
+    // This proxy is ONLY for local development
     proxy: {
       '/api': {
-        target: 'http://localhost:5001', // Your backend's address
+        target: 'http://localhost:5001',
         changeOrigin: true,
       },
     },
