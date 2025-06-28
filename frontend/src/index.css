@@ -1,0 +1,86 @@
+
+
+/* Global styles and color variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --heading-color: #0b3d91; /* A nice NASA blue */
+  --primary-accent: #FC3D21; /* NASA's red for accents */
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Basic reset and body styling */
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.7; }
+#root { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex-grow: 1; padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+h1, h2, h3 { color: var(--heading-color); font-weight: 700; }
+p { color: var(--text-color); }
+
+/* Header and Navigation */
+.app-header { background-color: var(--light-gray); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.logo { font-size: 1.8rem; font-weight: 800; color: var(--heading-color); text-decoration: none; }
+.app-nav a { color: var(--text-color); text-decoration: none; margin-left: 1.5rem; font-size: 1.1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.app-nav a.active { color: var(--heading-color); border-bottom-color: var(--primary-accent); }
+
+/* Page Container Styling and Load Animation */
+.page-container { background: var(--bg-color); padding: 2rem; border-radius: 12px; box-shadow: var(--box-shadow); animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Loading Spinner & Error Messages */
+.spinner-container { display: flex; justify-content: center; align-items: center; padding: 4rem; }
+.spinner { border: 5px solid var(--light-gray); border-top: 5px solid var(--heading-color); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.error-message { text-align: center; font-size: 1.2rem; padding: 3rem; background-color: #fff5f5; color: #c53030; border: 1px solid #fed7d7; border-radius: 8px; }
+
+/* AI Search & Filters */
+.filters { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input, .filters button { padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; background-color: var(--bg-color); }
+.filters button { background-color: var(--heading-color); color: white; border: none; cursor: pointer; transition: background-color 0.3s ease; }
+.filters button:hover { background-color: #082f6c; }
+.filters button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+/* Photo Gallery */
+.photo-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.photo-card { border-radius: 12px; overflow: hidden; box-shadow: var(--box-shadow); transition: transform 0.3s ease; }
+.photo-card:hover { transform: translateY(-5px); }
+.photo-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+.photo-card p { padding: 1rem; margin: 0; font-size: 0.9rem; background: var(--light-gray); border-top: 1px solid var(--border-color); }
+
+/* Chart & AI Summary */
+.chart-container { position: relative; height: 65vh; width: 100%; }
+.ai-summary { padding: 1rem; margin: 2rem 0; background-color: #eaf2ff; border-left: 5px solid var(--heading-color); border-radius: 4px; }
+.ai-summary p { margin: 0; font-size: 1.1rem; }
+
+/* Footer */
+.app-footer { text-align: center; padding: 2rem; margin-top: 2rem; background-color: var(--light-gray); border-top: 1px solid var(--border-color); color: #6c757d; }
+
+/* Chatbot styles */
+.chatbot-fab { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background-color: var(--heading-color); color: white; border-radius: 50%; border: none; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; z-index: 1000; transition: transform 0.3s ease; }
+.chatbot-fab:hover { transform: scale(1.1); }
+.chatbot-fab svg { width: 32px; height: 32px; }
+.chat-window { position: fixed; bottom: 6rem; right: 2rem; width: 350px; height: 450px; background-color: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; z-index: 999; transform: scale(0.5) translateY(100px); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.chat-window.active { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
+.chat-header { padding: 1rem; background-color: var(--heading-color); color: white; font-weight: bold; }
+.chat-messages { flex-grow: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+.message { padding: 0.5rem 1rem; border-radius: 18px; max-width: 80%; line-height: 1.4; }
+.message.user { background-color: var(--heading-color); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+.message.bot { background-color: var(--light-gray); color: var(--text-color); align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-input-form { display: flex; padding: 0.5rem; border-top: 1px solid var(--border-color); }
+.chat-input-form input { flex-grow: 1; border: none; padding: 0.75rem; font-size: 1rem; outline: none; }
+.chat-input-form button { background: none; border: none; padding: 0 0.75rem; color: var(--heading-color); cursor: pointer; }
+.chat-input-form button svg { width: 24px; height: 24px; }
+
+/* === NEW UX ENHANCEMENT STYLES === */
+.back-to-top-button { position: fixed; bottom: 6.5rem; right: 2rem; width: 50px; height: 50px; background-color: rgba(0, 0, 0, 0.5); color: white; border-radius: 50%; border: none; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 998; opacity: 0; transform: translateY(100px); pointer-events: none; transition: all 0.4s ease; }
+.back-to-top-button.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top-button:hover { background-color: rgba(0, 0, 0, 0.7); }
+.back-to-top-button svg { width: 24px; height: 24px; }
+.image-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; padding: 2rem; box-sizing: border-box; }
+.image-modal-content { position: relative; max-width: 90vw; max-height: 90vh; }
+.image-modal-content img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+.image-modal-close-button { position: absolute; top: -40px; right: -20px; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; }
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) { .app-header { flex-direction: column; gap: 1rem; } .app-nav { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; } .app-nav a { margin-left: 0; } main { padding: 1.5rem 1rem; } .page-container { padding: 1.5rem; } }
